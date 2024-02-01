@@ -1,0 +1,19 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.wrap{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+h5{
+    padding-right: 13px;
+}
+.title{
+   display: flex; 
+   align-items: center;
+   justify-content: space-between;
+}

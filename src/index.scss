@@ -1,0 +1,21 @@
+
+
+@font-face {
+  font-family: "Inter";
+  src: url("./fonts/Inter-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+list-style-type: none;
+}
+
+body {
+  min-height: 100vh;
+  background-color: #e5e5e5;
+}
