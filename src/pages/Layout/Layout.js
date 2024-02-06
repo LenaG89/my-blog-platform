@@ -17,12 +17,12 @@ const Layout = () => {
         </Link>
         <div className={stl.btnWrapper}>
           <MyButton type="text" size="large" children="Sign In" />
-          <MyButton
+         <Link to='/sign-up'> <MyButton
             type="default"
             size="large"
             children="Sign Up"
             color="#52C41A"
-          />
+          /></Link>
         </div>
       </header>
       <div className={stl.content}>
