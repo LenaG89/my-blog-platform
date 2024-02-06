@@ -1,33 +1,38 @@
-import React, { useState } from 'react';
+import { fetchAllArticles } from "../../store/serverActions/articlesThunks";
+import { togglePage } from "../../store/reducers/articleSlice";
+import { Pagination, ConfigProvider } from "antd";
+import { useDispatch } from "react-redux";
 
-import { Pagination, ConfigProvider } from 'antd';
+const MyPagination = ({ articlesCount, currentPage }) => {
+  const dispatch = useDispatch();
 
-const MyPagination = ({total=50, pageSize=5})=> {
-    const [current, setCurrent] = useState(1);
+  const onChange = (page) => {
+    console.log(page);
+    dispatch(togglePage(page));
+    dispatch(fetchAllArticles(page));
+  };
 
-    const onChange = (page) => {
-      console.log(page);
-      setCurrent(page);
-    };
-    
-return(
+  return (
     <ConfigProvider
-    theme={{
-      components: {
-        Pagination: {
-            itemActiveBg: '#1890FF',
-            colorPrimary: '#fff',
-            colorPrimaryHover: '#fff',
+      theme={{
+        components: {
+          Pagination: {
+            itemActiveBg: "#1890FF",
+            colorPrimary: "#fff",
+            colorPrimaryHover: "#fff",
             itemSize: 22,
-            
-
+          },
         },
-      },
-    }}
-  >
- <Pagination current={current} onChange={onChange} total={total} pageSize={pageSize} />
-  </ConfigProvider>
-)
-}
+      }}
+    >
+      <Pagination
+        current={currentPage}
+        onChange={onChange}
+        total={articlesCount}
+        showSizeChanger={false}
+      />
+    </ConfigProvider>
+  );
+};
 
-export default MyPagination
+export default MyPagination;

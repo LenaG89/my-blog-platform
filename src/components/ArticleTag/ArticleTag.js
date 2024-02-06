@@ -3,11 +3,12 @@ import React from "react";
 
 import stl from './ArticleTag.module.scss'
 
-const ArticleTag = ({ tagData }) => {
-  // const elements = tagData.map((tag, i) => {
-  //   return <Tag className={stl.tag} key={`${tag} ${i}`}>{tag}</Tag>;
-  // });
-  return <Tag className={stl.tag}>Tag1</ Tag>;
+const ArticleTag = ({ tagList}) => {
+  const elements = tagList.map((tag, i) => {
+    if (tag!=='')
+    return <Tag className={stl.tag} key={`${tag} ${i}`}>{tag}</Tag>;
+  });
+  return <div className={stl.tag}>{elements}</ div>;
 };
 
 export default ArticleTag;

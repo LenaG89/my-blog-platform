@@ -1,7 +1,7 @@
 .wrapper{
     display: flex;
     justify-content: space-between;
-    max-width: 141px;
+    min-width: 141px;
     align-items: center;
 }
 .name {
