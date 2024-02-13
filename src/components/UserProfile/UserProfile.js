@@ -5,14 +5,14 @@ import { Avatar } from "antd";
 
 import stl from "./UserProfile.module.scss";
 
-const UserProfile = ({ author, createdAt }) => {
-  const {username, image}= author;
+const UserProfile = ({ username, image, createdAt, author }) => {
+ 
   return (
     <div className={stl.wrapper}>
       <div className={stl.about}>
         <div className={stl.name}>{username}</div>
         <div className={stl.date}>
-          {createdAt ? format(parseISO(createdAt), "MMMM d, yyyy") : 'March 5, 2020'}
+          {createdAt ? format(parseISO(createdAt), "MMMM d, yyyy") : null}
         </div>
       </div>
       <Avatar

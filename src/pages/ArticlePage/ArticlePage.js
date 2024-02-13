@@ -3,41 +3,30 @@ import ArticleDescription from "../../components/ArticleDescription/ArticleDescr
 import ArticleTag from "../../components/ArticleTag/ArticleTag";
 import ArticleBody from "../../components/ArticleBody/ArticleBody";
 import UserProfile from "../../components/UserProfile/UserProfile";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchAnArticle } from "../../store/serverActions/articlesThunks";
+import { useParams } from "react-router-dom";
+import {useGetAnArticleQuery} from '../../store/kataPostsApi'
 import Loader from "../../components/Loader/Loader";
 import Error from "../../components/Error/Error";
-import { useEffect } from "react";
-
 import stl from "./ArticlePage.module.scss";
 
 const ArticlePage = () => {
   const { slug } = useParams();
-  const dispatch = useDispatch();
-  const article = useSelector((state) => state.articles.article);
-  const error = useSelector((state) => state.articles.error);
-  const loading = useSelector((state) => state.articles.loading);
 
-  console.log(useParams());
-
-  useEffect(() => {
-    dispatch(fetchAnArticle(slug));
-  }, [dispatch, slug]);
-
-  const active = !article ? null : (
+  const {data, isLoading, isError, error} = useGetAnArticleQuery(slug);
+  
+  const active = !data?.article ? null : (
     <li  className={stl.card}>
       <div className={stl.wrapper}>
-      <ArticleHeader slug={slug} title={article.title} favorited={article.favorited} favoritesCount={article.favoritesCount} author={article.author} />
-      <ArticleTag tagList={article.tagList}/>
-      <ArticleDescription description={article.description}/>
-      <ArticleBody body={article.body} />
+      <ArticleHeader slug={slug} title={data.article.title} favorited={data.article.favorited} favoritesCount={data.article.favoritesCount} author={data.article.author} />
+      <ArticleTag tagList={data.article.tagList}/>
+      <ArticleDescription description={data.article.description}/>
+      <ArticleBody body={data.article.body} />
       </div>
-      <UserProfile author={article.author} createdAt={article.createdAt} />
+      <UserProfile author={data.article.author} createdAt={data.article.createdAt} />
     </li>
   );
-  const spiner = loading ? <Loader /> : null;
-  const errorMessage = error ? <Error errorMessage={error} /> : null;
+  const spiner = isLoading ? <Loader /> : null;
+  const errorMessage = isError ? <Error errorMessage={error.data.errors.message} errorStatus={error.status} /> : null;
 
   return (
     <div className={stl.content}>

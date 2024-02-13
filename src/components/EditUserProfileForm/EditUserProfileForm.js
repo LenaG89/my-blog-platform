@@ -1,43 +1,40 @@
 import MyButton from "../MyButton/MyButton";
 import { useForm } from "react-hook-form";
-import { registerNewUser } from "../../store/serverActions/userThunks";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { updateUserProfile } from "../../store/serverActions/userThunks";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import stl from "./EditUserProfileForm.module.scss";
 
-import stl from "./SignUpForm.module.scss";
 
-const SignUpForm = () => {
+const EditUserProfileForm = () => {
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.user.user);
   const {
     register,
     formState: { errors, isValid },
     handleSubmit,
     reset,
-    watch,
   } = useForm({
     defaultValues: {
-      username: "",
-      email: "",
-      password: "",
-      repeatPassword: "",
-      isAgree: true,
+      username: currentUser?.username || null,
+      email: currentUser?.email || null,
+      image: currentUser?.image || null,
     },
     mode: "onChange",
   });
- 
-  const dispatch = useDispatch();
-  const onSubmit = (data) => {
-    dispatch(registerNewUser({ user: data }));
-    console.log(JSON.stringify(data));
-    reset();
-   
+  const navigate = useNavigate();
 
+  const onSubmit = (data) => {
+    const body= { user: data }
+    dispatch(updateUserProfile({body, navigate} ))
+    reset();
   };
 
   return (
     <div className={stl.wrapper}>
-      <h1>Create new account</h1>
+      <h1>Edit Profile</h1>
       <form
-        name="signUp"
+        name="EditProfile"
         onSubmit={handleSubmit(onSubmit)}
         className={stl.form}
       >
@@ -91,7 +88,7 @@ const SignUpForm = () => {
         </label>
 
         <label className={stl.label}>
-          Password
+          New Password
           <input
             {...register("password", {
               required: "Password is required",
@@ -111,64 +108,36 @@ const SignUpForm = () => {
             {errors?.password && <p>{errors?.password?.message || "Error!"}</p>}
           </div>
         </label>
-
         <label className={stl.label}>
-          Repeat Password
+          Avatar image (url)
           <input
-            {...register("repeatPassword", {
-              required: "Please repeat your password",
-              validate: (value) =>
-                value === watch("password") || "Passwords do not match",
+            {...register("image", {
+              required: false,
+              pattern: {
+                value:
+                  /^(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z]{2,}(\.[a-zA-Z]{2,})(\.[a-zA-Z]{2,})?\/[a-zA-Z0-9]{2,}|((https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z]{2,}(\.[a-zA-Z]{2,})(\.[a-zA-Z]{2,})?)|(https:\/\/www\.|http:\/\/www\.|https:\/\/|http:\/\/)?[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]{2,}\.[a-zA-Z0-9]{2,}(\.[a-zA-Z0-9]{2,})?/g,
+                message: "There must be a valid url",
+              },
             })}
-            placeholder="Repeat Password"
-            type="password"
+            placeholder="Enter image url"
             className={
-              !errors?.repeatPassword
-                ? stl.input
-                : `${stl.input} ${stl.input_error}`
+              !errors?.image ? stl.input : `${stl.input} ${stl.input_error}`
             }
           />
           <div className={stl.error}>
-            {errors?.repeatPassword && (
-              <p>{errors?.repeatPassword?.message || "Error!"}</p>
-            )}
+            {errors?.image && <p>{errors?.image?.message || "Error!"}</p>}
           </div>
         </label>
-
-        <hr className={stl.hr} />
-        <div className={stl.checkboxWrapper}>
-          <label className={stl.checkbox}>
-            <input
-              {...register("isAgree", {
-                required: "Checkbox must be checked",
-              })}
-              type="checkbox"
-              className={
-                !errors?.isAgree ? stl.input : `${stl.input} ${stl.input_error}`
-              }
-            />
-            <span>I agree to the processing of my personal information</span>
-          </label>
-          <div className={stl.error}>
-            {errors?.isAgree && <p>{errors?.isAgree?.message || "Error!"}</p>}
-          </div>
-        </div>
 
         <MyButton
           desabled={!isValid}
           type="primary"
-          children="Create"
+          children="Save"
           color="#1890FF"
           htmlType="submit"
         />
       </form>
-      <div className={stl.span}>
-        Already have an account?{" "}
-        <Link to="/sign-in" className={stl.link}>
-          Sign In.
-        </Link>
-      </div>
     </div>
   );
 };
-export default SignUpForm;
+export default EditUserProfileForm;

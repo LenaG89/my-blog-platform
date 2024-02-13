@@ -1,15 +1,16 @@
 import React from "react";
-import { Alert } from 'antd'
+import { Link } from "react-router-dom";
+
 import './Error.css'
 
-function Error({ errorMessage }) {
+function Error({ errorMessage, errorStatus }) {
   return (
-    <Alert
-      message="Something went wrong! "
-      description={errorMessage}
-      type="error"
-      className="alert-error"
-    />
+    <div className='alert-error'>
+      <h1>Someting went rong!</h1>
+      <p>{`Status: ${errorStatus}`}</p>
+      <p>{`Message: ${errorMessage}`}</p>
+      <p><Link to="/">Go to the Home page</Link></p> 
+    </div>
   )
 }
 

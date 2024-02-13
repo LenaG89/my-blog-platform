@@ -1,7 +1,8 @@
-import { fetchAllArticles } from "../../store/serverActions/articlesThunks";
+
 import { togglePage } from "../../store/reducers/articleSlice";
 import { Pagination, ConfigProvider } from "antd";
 import { useDispatch } from "react-redux";
+
 
 const MyPagination = ({ articlesCount, currentPage }) => {
   const dispatch = useDispatch();
@@ -9,9 +10,8 @@ const MyPagination = ({ articlesCount, currentPage }) => {
   const onChange = (page) => {
     console.log(page);
     dispatch(togglePage(page));
-    dispatch(fetchAllArticles(page));
+    
   };
-
   return (
     <ConfigProvider
       theme={{

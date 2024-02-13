@@ -1,7 +1,6 @@
 import ArticleHeader from "../ArticleHeader/ArticleHeader";
 import ArticleDescription from "../ArticleDescription/ArticleDescription";
 import ArticleTag from "../ArticleTag/ArticleTag";
-import ArticleBody from "../ArticleBody/ArticleBody";
 import UserProfile from "../UserProfile/UserProfile";
 
 
@@ -15,19 +14,19 @@ const ArticleCard = ({author,
   tagList,
   title,
   slug,
-  favorited, body, articleContent = false }) => {
- 
-  const content = articleContent ? <ArticleBody body={body} /> : null;
+  favorited, body,  }) => {
+ const {username, image }=author
+  
   return (
     
     <li  className={stl.card}>
       <div className={stl.wrapper}>
-      <ArticleHeader slug={slug} title={title} favorited={favorited} favoritesCount={favoritesCount} author={author} />
+      <ArticleHeader slug={slug} title={title} favorited={favorited} favoritesCount={favoritesCount}  />
       <ArticleTag tagList={tagList}/>
       <ArticleDescription description={description}/>
-      {content}
+     
       </div>
-      <UserProfile author={author} createdAt={createdAt} />
+      <UserProfile username={username} image={image} createdAt={createdAt} />
     </li>
      
   );

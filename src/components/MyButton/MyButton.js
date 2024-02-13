@@ -1,7 +1,7 @@
 
 import { Button, ConfigProvider } from "antd"
 
-const MyButton = ({children, type, size, block,  htmlType,  onClick, color }) => {
+const MyButton = ({children, type, size, block,  htmlType,  onClick, color, desabled }) => {
     return (
         <ConfigProvider
         theme={{
@@ -25,7 +25,7 @@ const MyButton = ({children, type, size, block,  htmlType,  onClick, color }) =>
             },
           }}
 >
-<Button type={type} size={size} htmlType={htmlType} block={block} onClick={onClick} >{children}</Button>
+<Button type={type} size={size} htmlType={htmlType} block={block} onClick={onClick} desabled={desabled} >{children}</Button>
 </ConfigProvider>
     )
 }
