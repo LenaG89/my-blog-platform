@@ -17,5 +17,5 @@ const articleSlice = createSlice({
     },
   }
 });
-export const { togglePage, setArticle } = articleSlice.actions;
+export const { togglePage } = articleSlice.actions;
 export default articleSlice.reducer;

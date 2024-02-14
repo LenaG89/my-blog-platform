@@ -26,3 +26,13 @@
     min-height: 810px;
     max-height: 100%;
 }
+.btnWrapper{
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+}
+.userWrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

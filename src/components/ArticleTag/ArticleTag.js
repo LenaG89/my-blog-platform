@@ -4,9 +4,9 @@ import React from "react";
 import stl from "./ArticleTag.module.scss";
 
 const ArticleTag = ({ tagList }) => {
-  const kitcut = (text, limit = 10) => {
+  const kitcut = (text, limit = 15) => {
     var description = text.trim();
-    if (description.length <= limit) return description;
+    if ((description.length <= limit) && (description.length !==0)) return description;
     var str = description.slice(0, limit);
     var a = str.split(" ");
     a.splice(a.length - 1, 1);

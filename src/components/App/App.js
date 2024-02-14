@@ -6,17 +6,19 @@ import SignInPage from "../../pages/SignInPage/SignInPage";
 import SignUpPage from "../../pages/SignUpPage/SignUpPage";
 import EditProfilePage from "../../pages/EditProfilePage/EditProfilePage";
 import NotFoundPage from "../../pages/NotFoundPage/NotFoundPage";
+import CreateArticlePage from "../../pages/CreateArticlePage/CreateArticlePage";
 import { useDispatch, useSelector } from "react-redux";
 import { upDateUserLS } from "../../store/reducers/userSlice";
-
+import EditArticlePage from '../../pages/EditArticlePage/EditArticlePage'
 import "./App.css";
 import { useEffect } from "react";
 import AuthUser from "../HOK/AuthUser";
+import NotAuthUser from "../HOK/NoAuthUser";
 
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
-  const error = useSelector((state) => state.user.errorMessage);
+
   useEffect(() => {
     const user = localStorage.getItem("user");
     if (user) {
@@ -36,6 +38,22 @@ function App() {
           <Route path="sign-up" element={<SignUpPage />} />
         </Route>
         <Route path="profile" element={<EditProfilePage />} />
+        <Route
+          path="new-article"
+          element={
+            <NotAuthUser user={user}>
+              <CreateArticlePage />
+            </NotAuthUser>
+          }
+        />
+         <Route
+          path="articles/:slug/edit"
+          element={
+            <NotAuthUser user={user}>
+              <EditArticlePage />
+            </NotAuthUser>
+          }
+        />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

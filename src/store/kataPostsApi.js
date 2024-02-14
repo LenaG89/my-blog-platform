@@ -30,10 +30,26 @@ export const kataPostsApi = createApi({
       query: (body) => ({
         url: "articles",
         method: "POST",
+        headers: {
+            "Content-Type": "application/json;charset=utf-8",
+            Authorization: `Token ${localStorage.getItem("token")}`,
+          },
         body,
       }),
       invalidatesTags: [{ type: "Articles", id: "LIST" }],
     }),
+    updateAnArticle: build.mutation({
+        query: ({body, slug}) => ({
+          url: `articles/${slug}`,
+          method: "PUT",
+          headers: {
+              "Content-Type": "application/json;charset=utf-8",
+              Authorization: `Token ${localStorage.getItem("token")}`,
+            },
+          body,
+        }),
+        invalidatesTags: [{ type: "Article" }],
+      }),
   }),
 });
 
@@ -41,4 +57,5 @@ export const {
   useGetAllArticlesQuery,
   useGetAnArticleQuery,
   useCreateAnArticleMutation,
+  useUpdateAnArticleMutation,
 } = kataPostsApi;

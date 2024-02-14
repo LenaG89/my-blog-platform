@@ -43,7 +43,7 @@ const Layout = () => {
           </div>
         ) : (
           <div className={stl.btnWrapper}>
-            <Link to="/">
+            <Link to="/new-article">
               <MyButton
                 type="default"
                 children="Create article"
