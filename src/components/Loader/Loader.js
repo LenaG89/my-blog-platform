@@ -1,11 +1,18 @@
 import React from "react";
 import { Spin, ConfigProvider } from "antd";
 
-import "./Loader.css"
+import "./Loader.css";
 
- const Loader = () => {
-   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '25%' }}>
+const Loader = () => {
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: "25%",
+      }}
+    >
       <ConfigProvider
         theme={{
           token: {
@@ -16,6 +23,6 @@ import "./Loader.css"
         <Spin />
       </ConfigProvider>
     </div>
-  )
- }
- export default Loader
+  );
+};
+export default Loader;

@@ -5,8 +5,7 @@ import { Avatar } from "antd";
 
 import stl from "./UserProfile.module.scss";
 
-const UserProfile = ({ username, image, createdAt}) => {
- 
+const UserProfile = ({ username, image, createdAt }) => {
   return (
     <div className={stl.wrapper}>
       <div className={stl.about}>

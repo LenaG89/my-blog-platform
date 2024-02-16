@@ -1,7 +1,7 @@
 import MyButton from "../MyButton/MyButton";
 import { useForm, useFieldArray } from "react-hook-form";
 import Error from "../Error/Error";
-
+import PropTypes from "prop-types";
 import { useGetAnArticleQuery } from "../../store/kataPostsApi";
 import stl from "./ArticleForm.module.scss";
 
@@ -40,7 +40,6 @@ const ArticleForm = ({ formTitle, slug, handleOnSubmit, isError, error }) => {
   const onSubmit = (data) => {
     handleOnSubmit(data);
     reset();
-   
   };
 
   return (
@@ -169,5 +168,11 @@ const ArticleForm = ({ formTitle, slug, handleOnSubmit, isError, error }) => {
     </div>
   );
 };
-
+ArticleForm.propTypes = {
+  formTitle: PropTypes.string,
+  slug: PropTypes.string,
+  handleOnSubmit: PropTypes.func,
+  isError: PropTypes.bool,
+  error: PropTypes.object,
+};
 export default ArticleForm;

@@ -4,7 +4,10 @@ import ArticleTag from "../../components/ArticleTag/ArticleTag";
 import ArticleBody from "../../components/ArticleBody/ArticleBody";
 import UserProfile from "../../components/UserProfile/UserProfile";
 import { useParams, Link } from "react-router-dom";
-import { useGetAnArticleQuery, useDeleteAnArticleMutation } from "../../store/kataPostsApi";
+import {
+  useGetAnArticleQuery,
+  useDeleteAnArticleMutation,
+} from "../../store/kataPostsApi";
 import Loader from "../../components/Loader/Loader";
 import Error from "../../components/Error/Error";
 import { useSelector } from "react-redux";
@@ -16,13 +19,13 @@ import { Popconfirm, message } from "antd";
 const ArticlePage = () => {
   const { slug } = useParams();
   const { data, isLoading, isError, error } = useGetAnArticleQuery(slug);
-  const [deleteAnArticle ] = useDeleteAnArticleMutation(slug);
+  const [deleteAnArticle] = useDeleteAnArticleMutation(slug);
   const user = useSelector((state) => state.user.user);
   const navigate = useNavigate();
 
   const confirm = async () => {
-   await deleteAnArticle(slug);
-   navigate('/', { replace: true });
+    await deleteAnArticle(slug);
+    navigate("/", { replace: true });
     message.success("The article was successfully deleted");
   };
 
@@ -34,7 +37,7 @@ const ArticlePage = () => {
           title={data.article.title}
           favorited={data.article.favorited}
           favoritesCount={data.article.favoritesCount}
-          author={data.article.author} 
+          author={data.article.author}
         />
         <ArticleTag tagList={data.article.tagList} />
         <ArticleDescription description={data.article.description} />

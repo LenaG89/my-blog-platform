@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import stl from "./EditUserProfileForm.module.scss";
 
-
 const EditUserProfileForm = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.user.user);
@@ -25,8 +24,8 @@ const EditUserProfileForm = () => {
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    const body= { user: data }
-    dispatch(updateUserProfile({body, navigate} ))
+    const body = { user: data };
+    dispatch(updateUserProfile({ body, navigate }));
     reset();
   };
 

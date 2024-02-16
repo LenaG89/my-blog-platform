@@ -1,16 +1,12 @@
-
 import { togglePage } from "../../store/reducers/articleSlice";
 import { Pagination, ConfigProvider } from "antd";
 import { useDispatch } from "react-redux";
-
 
 const MyPagination = ({ articlesCount, currentPage }) => {
   const dispatch = useDispatch();
 
   const onChange = (page) => {
-    console.log(page);
     dispatch(togglePage(page));
-    
   };
   return (
     <ConfigProvider

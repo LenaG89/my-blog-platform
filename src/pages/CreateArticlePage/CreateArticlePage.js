@@ -16,7 +16,7 @@ const CreateArticlePage = () => {
       },
     };
     await addArticle(newArticle).unwrap();
-    navigate('/', { replace: true });
+    navigate("/", { replace: true });
   };
   return (
     <div className={stl.content}>

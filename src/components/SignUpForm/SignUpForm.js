@@ -23,14 +23,12 @@ const SignUpForm = () => {
     },
     mode: "onChange",
   });
- 
+
   const dispatch = useDispatch();
   const onSubmit = (data) => {
     dispatch(registerNewUser({ user: data }));
     console.log(JSON.stringify(data));
     reset();
-   
-
   };
 
   return (

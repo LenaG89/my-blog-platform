@@ -12,17 +12,13 @@ const LikesCounter = ({ favoritesCount, favorited, slug }) => {
   const [addFavorite] = useFavoriteAnArticleMutation();
   const [addUnfavorite] = useUnfavoriteAnArticleMutation();
 
-
   const toggleLike = async () => {
     if (favorited) {
-      await addUnfavorite(slug)
-    
+      await addUnfavorite(slug);
     } else {
-      await addFavorite(slug)
+      await addFavorite(slug);
     }
-    
   };
-
 
   return (
     <ConfigProvider

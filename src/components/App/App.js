@@ -9,13 +9,13 @@ import NotFoundPage from "../../pages/NotFoundPage/NotFoundPage";
 import CreateArticlePage from "../../pages/CreateArticlePage/CreateArticlePage";
 import { useDispatch, useSelector } from "react-redux";
 import { upDateUserLS } from "../../store/reducers/userSlice";
-import EditArticlePage from '../../pages/EditArticlePage/EditArticlePage'
-import "./App.css";
+import EditArticlePage from "../../pages/EditArticlePage/EditArticlePage";
 import { useEffect } from "react";
 import AuthUser from "../HOK/AuthUser";
 import NotAuthUser from "../HOK/NoAuthUser";
+import { withErrorBoundary, useErrorBoundary } from "react-use-error-boundary";
 
-function App() {
+const App = () =>{
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
 
@@ -46,7 +46,7 @@ function App() {
             </NotAuthUser>
           }
         />
-         <Route
+        <Route
           path="articles/:slug/edit"
           element={
             <NotAuthUser user={user}>

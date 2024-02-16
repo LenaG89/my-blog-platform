@@ -7,9 +7,7 @@ import { useGetAllArticlesQuery } from "../../store/kataPostsApi";
 
 import stl from "./AllArticlesPage.module.scss";
 
-
 const AllArticlesPage = () => {
-  
   const currentPage = useSelector((state) => state.articles.currentPage);
   const {
     data = [],
@@ -17,14 +15,19 @@ const AllArticlesPage = () => {
     isError,
     error,
   } = useGetAllArticlesQuery(currentPage * 5 - 5);
- 
+
   const articles = data?.articles?.map((item) => {
-    return <ArticleCard key={item.slug} {...item}  />;
+    return <ArticleCard key={item.slug} {...item} />;
   });
 
   const active = data.articles ? articles : null;
   const spiner = isLoading ? <Loader /> : null;
-  const errorMessage = isError ? <Error  errorMessage={error.data.errors.message} errorStatus={error.status} /> : null;
+  const errorMessage = isError ? (
+    <Error
+      errorMessage={error.data.errors.message}
+      errorStatus={error.status}
+    />
+  ) : null;
   const pagination =
     data?.articlesCount > 5 ? (
       <MyPagination

@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { onCloseError } from "../../store/reducers/userSlice";
 import stl from "./SignInPage.module.scss";
 
-
 const SignInPage = () => {
   const dispatch = useDispatch();
   const userError = useSelector((state) => state.user.errorMessage);
@@ -21,8 +20,9 @@ const SignInPage = () => {
           type="error"
           closable
           onClose={onClose}
-        />)}
-        <SignInForm />
+        />
+      )}
+      <SignInForm />
     </div>
   );
 };

@@ -2,10 +2,9 @@ import SignUpForm from "../../components/SignUpForm/SignUpForm";
 import { Alert } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import { onCloseError } from "../../store/reducers/userSlice";
-import stl from './SignUpPage.module.scss'
+import stl from "./SignUpPage.module.scss";
 
 const SignUpPage = () => {
-
   const dispatch = useDispatch();
   const userError = useSelector((state) => state.user.errorMessage);
   const onClose = () => {
@@ -21,7 +20,8 @@ const SignUpPage = () => {
           type="error"
           closable
           onClose={onClose}
-        />)}
+        />
+      )}
       <SignUpForm />
     </div>
   );
