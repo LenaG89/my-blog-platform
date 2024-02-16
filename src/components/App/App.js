@@ -13,9 +13,8 @@ import EditArticlePage from "../../pages/EditArticlePage/EditArticlePage";
 import { useEffect } from "react";
 import AuthUser from "../HOK/AuthUser";
 import NotAuthUser from "../HOK/NoAuthUser";
-import { withErrorBoundary, useErrorBoundary } from "react-use-error-boundary";
 
-const App = () =>{
+const App = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
 
@@ -23,7 +22,6 @@ const App = () =>{
     const user = localStorage.getItem("user");
     if (user) {
       dispatch(upDateUserLS(JSON.parse(user)));
-      console.log(user);
     }
   }, [dispatch]);
 
@@ -58,6 +56,6 @@ const App = () =>{
       </Route>
     </Routes>
   );
-}
+};
 
 export default App;
