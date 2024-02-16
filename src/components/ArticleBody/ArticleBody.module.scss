@@ -3,7 +3,8 @@
     font-size: 14px;
     line-height: 22p;
    overflow: hidden;
-   word-break: break-all;
+  //  word-break: break-all;
+   hyphens: auto;
     &h6{  
       font-size: 18px;
       line-height: 28px;

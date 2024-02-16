@@ -1,14 +1,36 @@
 import { Statistic, ConfigProvider } from "antd";
 import { HeartFilled, HeartOutlined } from "@ant-design/icons";
+import { useSelector } from "react-redux";
 
-const LikesCounter = ({ onChange, favoritesCount,  favorited }) => {
+import {
+  useFavoriteAnArticleMutation,
+  useUnfavoriteAnArticleMutation,
+} from "../../store/kataPostsApi";
+
+const LikesCounter = ({ favoritesCount, favorited, slug }) => {
+  const user = useSelector((state) => state.user.user);
+  const [addFavorite] = useFavoriteAnArticleMutation();
+  const [addUnfavorite] = useUnfavoriteAnArticleMutation();
+
+
+  const toggleLike = async () => {
+    if (favorited) {
+      await addUnfavorite(slug)
+    
+    } else {
+      await addFavorite(slug)
+    }
+    
+  };
+
+
   return (
     <ConfigProvider
       theme={{
         components: {
           Statistic: {
-            contentFontSize: 12,
-            colorText: "rgba(0, 0, 0, 0.75)",
+            contentFontSize: 16,
+            colorText: " #000000BF",
           },
         },
       }}
@@ -16,11 +38,15 @@ const LikesCounter = ({ onChange, favoritesCount,  favorited }) => {
       <Statistic
         value={favoritesCount}
         prefix={
-          <HeartOutlined
-            style={{ fontSize: 16, color: "rgba(0, 0, 0, 0.75)" }}
-          />
+          favorited ? (
+            <HeartFilled
+              style={{ color: "red" }}
+              onClick={user ? toggleLike : undefined}
+            />
+          ) : (
+            <HeartOutlined onClick={user ? toggleLike : undefined} />
+          )
         }
-        onChange={onChange}
       />
     </ConfigProvider>
   );

@@ -1,7 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 import articleReducer from "./reducers/articleSlice";
 import { kataPostsApi } from "./kataPostsApi";
-import userReducer from './reducers/userSlice'
+import userReducer from './reducers/userSlice';
+
 
 export default configureStore({
   reducer: {

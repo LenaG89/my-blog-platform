@@ -14,9 +14,10 @@ const ArticleCard = ({author,
   tagList,
   title,
   slug,
-  favorited, body,  }) => {
+  favorited,
+ }) => {
  const {username, image }=author
-  
+ 
   return (
     
     <li  className={stl.card}>

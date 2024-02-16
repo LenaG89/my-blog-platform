@@ -40,7 +40,7 @@ const ArticleForm = ({ formTitle, slug, handleOnSubmit, isError, error }) => {
   const onSubmit = (data) => {
     handleOnSubmit(data);
     reset();
-    console.log(JSON.stringify(error));
+   
   };
 
   return (

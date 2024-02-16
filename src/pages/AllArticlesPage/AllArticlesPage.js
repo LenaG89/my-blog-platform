@@ -4,9 +4,12 @@ import Loader from "../../components/Loader/Loader";
 import Error from "../../components/Error/Error";
 import { useSelector } from "react-redux";
 import { useGetAllArticlesQuery } from "../../store/kataPostsApi";
+
 import stl from "./AllArticlesPage.module.scss";
 
+
 const AllArticlesPage = () => {
+  
   const currentPage = useSelector((state) => state.articles.currentPage);
   const {
     data = [],
@@ -14,9 +17,9 @@ const AllArticlesPage = () => {
     isError,
     error,
   } = useGetAllArticlesQuery(currentPage * 5 - 5);
-
+ 
   const articles = data?.articles?.map((item) => {
-    return <ArticleCard key={item.slug} {...item} />;
+    return <ArticleCard key={item.slug} {...item}  />;
   });
 
   const active = data.articles ? articles : null;

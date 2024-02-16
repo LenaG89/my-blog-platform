@@ -1,13 +1,10 @@
-
 import LikesCounter from "../LikesCounter/LikesCounter";
-
 
 import { Link } from "react-router-dom";
 
 import stl from "./ArticleHeader.module.scss";
 
 const ArticleHeader = ({ slug, title, favorited, favoritesCount }) => {
-
   const kitcut = (text, limit = 50) => {
     var description = text.trim();
     if (description.length <= limit) return description;
@@ -17,19 +14,22 @@ const ArticleHeader = ({ slug, title, favorited, favoritesCount }) => {
     str = a.join(" ");
     return str + "...";
   };
+  
  
   return (
-    
-      <div className={stl.wrap}>
-        <div className={stl.title}>
-          <Link  to={`/articles/${slug}`} className={stl.nondec}>
-          <h5 className={stl.h5}  >{kitcut(title)} </h5>
-          </Link>
-          <LikesCounter favorited={favorited} favoritesCount={favoritesCount} />
-        </div>
+    <div className={stl.wrap}>
+      <div className={stl.title}>
+        <Link to={`/articles/${slug}`} className={stl.nondec}>
+          <h5 className={stl.h5}>{kitcut(title)} </h5>
+        </Link>
+        <LikesCounter
+          favorited={favorited}
+          favoritesCount={favoritesCount}
+          slug={slug}
+          
+        />
       </div>
-     
- 
+    </div>
   );
 };
 export default ArticleHeader;

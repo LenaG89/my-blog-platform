@@ -8,7 +8,17 @@ export const kataPostsApi = createApi({
   }),
   endpoints: (build) => ({
     getAllArticles: build.query({
-      query: (offset = 0) => `articles?limit=5&offset=${offset}`,
+      query: (offset = 0) => ({
+        url: `articles`,
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        },
+        params: {
+          offset,
+          limit: 5,
+        },
+      }),
       providesTags: (result) =>
         result
           ? [
@@ -22,7 +32,13 @@ export const kataPostsApi = createApi({
     }),
 
     getAnArticle: build.query({
-      query: (slug) => `articles/${slug}`,
+      query: (slug) => ({
+        url: `articles/${slug}`,
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        },
+      }),
       providesTags: ["Article"],
     }),
 
@@ -31,25 +47,59 @@ export const kataPostsApi = createApi({
         url: "articles",
         method: "POST",
         headers: {
-            "Content-Type": "application/json;charset=utf-8",
-            Authorization: `Token ${localStorage.getItem("token")}`,
-          },
+          "Content-Type": "application/json;charset=utf-8",
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        },
         body,
       }),
       invalidatesTags: [{ type: "Articles", id: "LIST" }],
     }),
     updateAnArticle: build.mutation({
-        query: ({body, slug}) => ({
-          url: `articles/${slug}`,
-          method: "PUT",
-          headers: {
-              "Content-Type": "application/json;charset=utf-8",
-              Authorization: `Token ${localStorage.getItem("token")}`,
-            },
-          body,
-        }),
-        invalidatesTags: [{ type: "Article" }],
+      query: ({ body, slug }) => ({
+        url: `articles/${slug}`,
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        },
+        body,
       }),
+      invalidatesTags: [{ type: "Article" }],
+    }),
+    deleteAnArticle: build.mutation({
+      query: (slug) => ({
+        url: `articles/${slug}`,
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        },
+      }),
+      invalidatesTags: [{ type: "Articles", id: "LIST" }],
+    }),
+    favoriteAnArticle: build.mutation({
+      query: (slug) => ({
+        url: `articles/${slug}/favorite`,
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        },
+        body: {},
+      }),
+      invalidatesTags: [{ type: "Articles", id: "LIST" }, "Article"],
+    }),
+    unfavoriteAnArticle: build.mutation({
+      query: (slug) => ({
+        url: `articles/${slug}/favorite`,
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        },
+      }),
+      invalidatesTags: [{ type: "Articles", id: "LIST" }, "Article"],
+    }),
   }),
 });
 
@@ -58,4 +108,7 @@ export const {
   useGetAnArticleQuery,
   useCreateAnArticleMutation,
   useUpdateAnArticleMutation,
+  useDeleteAnArticleMutation,
+  useFavoriteAnArticleMutation,
+  useUnfavoriteAnArticleMutation,
 } = kataPostsApi;

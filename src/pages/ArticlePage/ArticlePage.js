@@ -4,25 +4,26 @@ import ArticleTag from "../../components/ArticleTag/ArticleTag";
 import ArticleBody from "../../components/ArticleBody/ArticleBody";
 import UserProfile from "../../components/UserProfile/UserProfile";
 import { useParams, Link } from "react-router-dom";
-import { useGetAnArticleQuery } from "../../store/kataPostsApi";
+import { useGetAnArticleQuery, useDeleteAnArticleMutation } from "../../store/kataPostsApi";
 import Loader from "../../components/Loader/Loader";
 import Error from "../../components/Error/Error";
 import { useSelector } from "react-redux";
 import stl from "./ArticlePage.module.scss";
 import MyButton from "../../components/MyButton/MyButton";
+import { useNavigate } from "react-router-dom";
 import { Popconfirm, message } from "antd";
 
 const ArticlePage = () => {
   const { slug } = useParams();
   const { data, isLoading, isError, error } = useGetAnArticleQuery(slug);
+  const [deleteAnArticle ] = useDeleteAnArticleMutation(slug);
   const user = useSelector((state) => state.user.user);
-  const confirm = (e) => {
-    console.log(e);
-    message.success("Click on Yes");
-  };
-  const cancel = (e) => {
-    console.log(e);
-    message.error("Click on No");
+  const navigate = useNavigate();
+
+  const confirm = async () => {
+   await deleteAnArticle(slug);
+   navigate('/', { replace: true });
+    message.success("The article was successfully deleted");
   };
 
   const active = !data?.article ? null : (
@@ -33,7 +34,7 @@ const ArticlePage = () => {
           title={data.article.title}
           favorited={data.article.favorited}
           favoritesCount={data.article.favoritesCount}
-          author={data.article.author}
+          author={data.article.author} 
         />
         <ArticleTag tagList={data.article.tagList} />
         <ArticleDescription description={data.article.description} />
@@ -53,7 +54,6 @@ const ArticlePage = () => {
                 width: "240px",
               }}
               onConfirm={confirm}
-              onCancel={cancel}
               okText="Yes"
               cancelText="No"
               placement="rightTop"
