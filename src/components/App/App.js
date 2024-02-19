@@ -13,7 +13,8 @@ import EditArticlePage from "../../pages/EditArticlePage/EditArticlePage";
 import { useEffect } from "react";
 import AuthUser from "../HOK/AuthUser";
 import NotAuthUser from "../HOK/NoAuthUser";
-
+import { withErrorBoundary } from "react-error-boundary";
+import stl from './App.module.scss'
 const App = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
@@ -58,4 +59,12 @@ const App = () => {
   );
 };
 
-export default App;
+export default withErrorBoundary(App, {
+    fallback: <div className={stl.error}>
+      <p>Something went wrong!!!</p>
+      <p>We are already working on it</p></div>,
+    onError(error, info) {
+      console.log(error, info)
+    },
+  
+});
