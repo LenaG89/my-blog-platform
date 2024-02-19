@@ -47,7 +47,6 @@ export const existingUserLogin = createAsyncThunk(
         throw new Error(`The email or password is incorrect`);
       }
       const data = await response.json();
-      console.log(data);
       localStorage.setItem("user", JSON.stringify(data.user));
       localStorage.setItem("token", data.user.token);
       return data;
@@ -78,7 +77,7 @@ export const updateUserProfile = createAsyncThunk(
         throw new Error(`The email or username is already in use`);
       }
       const data = await response.json();
-      console.log(data);
+  
       localStorage.setItem("user", JSON.stringify(data.user));
       navigate("/",  { replace: true })
       return data;
