@@ -64,7 +64,7 @@ export const kataPostsApi = createApi({
         },
         body,
       }),
-      invalidatesTags: [{ type: "Article" }],
+      invalidatesTags: [{ type: "Articles", id: "LIST" }, "Article"],
     }),
     deleteAnArticle: build.mutation({
       query: (slug) => ({
